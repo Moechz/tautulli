@@ -1,0 +1,195 @@
+# ===========================================================================
+# Multilingual file for the TOS 7 Docker application "tautullidocker".
+# File name MUST be: <appid>.lang.  23-language superset (14 required by TOS).
+# The App Center picks the text matching the user's device language;
+# untranslated nodes fall back to English, which the official guide allows.
+# Fields: name (app title), auth (upstream author), descript (up to 512
+# chars), release_note, important (up to 512 chars).
+# Translations come from tosapp.json "translations"; run
+#   tosdocker lang <app>          to re-render this file
+#   tosdocker translate <app>     to see what still needs translating
+# ===========================================================================
+[en-us]
+name         = "Tautulli"
+auth         = "linuxserver.io"
+version      = "@@VERSION@@"
+descript     = "Tautulli is a monitoring and statistics companion for Plex Media Server. It records play history, shows live streams, bandwidth and library statistics, and can send notifications for new plays. This package runs the official LinuxServer.io Tautulli image as a non-root container; its database, configuration and cache live in the application data folder. Open the app and point it at your Plex server URL and token in the setup wizard."
+release_note = "1. First release: Tautulli 2.18.2 from Docker Hub, running as a non-root container; database, settings and cache live in the application data folder."
+important    = "Requires DockerEngine and a Plex Media Server. On first visit, complete the setup wizard with the Plex URL and token; everything is stored in DockerAppData/tautullidocker. Plex itself is not included. Back up the app data folder before uninstalling with data removal. The page is plain HTTP on the LAN; use a TLS reverse proxy before exposing it to the internet."
+
+[zh-cn]
+name         = "Tautulli"
+auth         = "linuxserver.io"
+version      = "@@VERSION@@"
+descript     = "Tautulli 是 Plex Media Server 的监控与统计工具：记录播放历史、实时会话、带宽和媒体库统计，并可发送通知。本应用运行 LinuxServer.io 官方镜像并以非 root 用户运行；数据库、配置和缓存保存在应用数据目录。打开应用后在向导里填入 Plex 地址和 Token 即可。"
+release_note = "1. 首个版本：Tautulli 2.18.2，来自 Docker Hub，以非 root 用户运行；数据库、设置和缓存保存在应用数据目录。"
+important    = "需要 DockerEngine 和 Plex Media Server。首次访问请在向导中填写 Plex 地址与 Token；数据保存在 DockerAppData/tautullidocker。本包不含 Plex 本体。卸载并删除数据前请备份。页面是局域网明文 HTTP，暴露公网前请加 TLS 反向代理。"
+
+[zh-hk]
+name         = "Tautulli"
+auth         = "linuxserver.io"
+version      = "@@VERSION@@"
+descript     = "Tautulli 是 Plex Media Server 的監控與統計工具：記錄播放歷史、即時工作階段、頻寬和媒體庫統計，並可傳送通知。本應用執行 LinuxServer.io 官方鏡像並以非 root 使用者執行；資料庫、設定和快取儲存在應用程式資料目錄。開啟應用後在精靈裡填入 Plex 位址和 Token 即可。"
+release_note = "1. 首個版本：Tautulli 2.18.2，來自 Docker Hub，以非 root 使用者執行；資料庫、設定和快取儲存在應用程式資料目錄。"
+important    = "需要 DockerEngine 和 Plex Media Server。首次存取請在精靈中填寫 Plex 位址與 Token；資料儲存在 DockerAppData/tautullidocker。本包不含 Plex 本體。解除安裝並刪除資料前請備份。頁面是區域網路明文 HTTP，暴露公網前請加 TLS 反向代理。"
+
+[fr-fr]
+name         = "Tautulli"
+auth         = "linuxserver.io"
+version      = "@@VERSION@@"
+descript     = "Tautulli is a monitoring and statistics companion for Plex Media Server. It records play history, shows live streams, bandwidth and library statistics, and can send notifications for new plays. This package runs the official LinuxServer.io Tautulli image as a non-root container; its database, configuration and cache live in the application data folder. Open the app and point it at your Plex server URL and token in the setup wizard."
+release_note = "1. First release: Tautulli 2.18.2 from Docker Hub, running as a non-root container; database, settings and cache live in the application data folder."
+important    = "Requires DockerEngine and a Plex Media Server. On first visit, complete the setup wizard with the Plex URL and token; everything is stored in DockerAppData/tautullidocker. Plex itself is not included. Back up the app data folder before uninstalling with data removal. The page is plain HTTP on the LAN; use a TLS reverse proxy before exposing it to the internet."
+
+[de-de]
+name         = "Tautulli"
+auth         = "linuxserver.io"
+version      = "@@VERSION@@"
+descript     = "Tautulli is a monitoring and statistics companion for Plex Media Server. It records play history, shows live streams, bandwidth and library statistics, and can send notifications for new plays. This package runs the official LinuxServer.io Tautulli image as a non-root container; its database, configuration and cache live in the application data folder. Open the app and point it at your Plex server URL and token in the setup wizard."
+release_note = "1. First release: Tautulli 2.18.2 from Docker Hub, running as a non-root container; database, settings and cache live in the application data folder."
+important    = "Requires DockerEngine and a Plex Media Server. On first visit, complete the setup wizard with the Plex URL and token; everything is stored in DockerAppData/tautullidocker. Plex itself is not included. Back up the app data folder before uninstalling with data removal. The page is plain HTTP on the LAN; use a TLS reverse proxy before exposing it to the internet."
+
+[it-it]
+name         = "Tautulli"
+auth         = "linuxserver.io"
+version      = "@@VERSION@@"
+descript     = "Tautulli is a monitoring and statistics companion for Plex Media Server. It records play history, shows live streams, bandwidth and library statistics, and can send notifications for new plays. This package runs the official LinuxServer.io Tautulli image as a non-root container; its database, configuration and cache live in the application data folder. Open the app and point it at your Plex server URL and token in the setup wizard."
+release_note = "1. First release: Tautulli 2.18.2 from Docker Hub, running as a non-root container; database, settings and cache live in the application data folder."
+important    = "Requires DockerEngine and a Plex Media Server. On first visit, complete the setup wizard with the Plex URL and token; everything is stored in DockerAppData/tautullidocker. Plex itself is not included. Back up the app data folder before uninstalling with data removal. The page is plain HTTP on the LAN; use a TLS reverse proxy before exposing it to the internet."
+
+[es-es]
+name         = "Tautulli"
+auth         = "linuxserver.io"
+version      = "@@VERSION@@"
+descript     = "Tautulli is a monitoring and statistics companion for Plex Media Server. It records play history, shows live streams, bandwidth and library statistics, and can send notifications for new plays. This package runs the official LinuxServer.io Tautulli image as a non-root container; its database, configuration and cache live in the application data folder. Open the app and point it at your Plex server URL and token in the setup wizard."
+release_note = "1. First release: Tautulli 2.18.2 from Docker Hub, running as a non-root container; database, settings and cache live in the application data folder."
+important    = "Requires DockerEngine and a Plex Media Server. On first visit, complete the setup wizard with the Plex URL and token; everything is stored in DockerAppData/tautullidocker. Plex itself is not included. Back up the app data folder before uninstalling with data removal. The page is plain HTTP on the LAN; use a TLS reverse proxy before exposing it to the internet."
+
+[hu-hu]
+name         = "Tautulli"
+auth         = "linuxserver.io"
+version      = "@@VERSION@@"
+descript     = "Tautulli is a monitoring and statistics companion for Plex Media Server. It records play history, shows live streams, bandwidth and library statistics, and can send notifications for new plays. This package runs the official LinuxServer.io Tautulli image as a non-root container; its database, configuration and cache live in the application data folder. Open the app and point it at your Plex server URL and token in the setup wizard."
+release_note = "1. First release: Tautulli 2.18.2 from Docker Hub, running as a non-root container; database, settings and cache live in the application data folder."
+important    = "Requires DockerEngine and a Plex Media Server. On first visit, complete the setup wizard with the Plex URL and token; everything is stored in DockerAppData/tautullidocker. Plex itself is not included. Back up the app data folder before uninstalling with data removal. The page is plain HTTP on the LAN; use a TLS reverse proxy before exposing it to the internet."
+
+[ja-jp]
+name         = "Tautulli"
+auth         = "linuxserver.io"
+version      = "@@VERSION@@"
+descript     = "Tautulli is a monitoring and statistics companion for Plex Media Server. It records play history, shows live streams, bandwidth and library statistics, and can send notifications for new plays. This package runs the official LinuxServer.io Tautulli image as a non-root container; its database, configuration and cache live in the application data folder. Open the app and point it at your Plex server URL and token in the setup wizard."
+release_note = "1. First release: Tautulli 2.18.2 from Docker Hub, running as a non-root container; database, settings and cache live in the application data folder."
+important    = "Requires DockerEngine and a Plex Media Server. On first visit, complete the setup wizard with the Plex URL and token; everything is stored in DockerAppData/tautullidocker. Plex itself is not included. Back up the app data folder before uninstalling with data removal. The page is plain HTTP on the LAN; use a TLS reverse proxy before exposing it to the internet."
+
+[ko-kr]
+name         = "Tautulli"
+auth         = "linuxserver.io"
+version      = "@@VERSION@@"
+descript     = "Tautulli is a monitoring and statistics companion for Plex Media Server. It records play history, shows live streams, bandwidth and library statistics, and can send notifications for new plays. This package runs the official LinuxServer.io Tautulli image as a non-root container; its database, configuration and cache live in the application data folder. Open the app and point it at your Plex server URL and token in the setup wizard."
+release_note = "1. First release: Tautulli 2.18.2 from Docker Hub, running as a non-root container; database, settings and cache live in the application data folder."
+important    = "Requires DockerEngine and a Plex Media Server. On first visit, complete the setup wizard with the Plex URL and token; everything is stored in DockerAppData/tautullidocker. Plex itself is not included. Back up the app data folder before uninstalling with data removal. The page is plain HTTP on the LAN; use a TLS reverse proxy before exposing it to the internet."
+
+[pl-pl]
+name         = "Tautulli"
+auth         = "linuxserver.io"
+version      = "@@VERSION@@"
+descript     = "Tautulli is a monitoring and statistics companion for Plex Media Server. It records play history, shows live streams, bandwidth and library statistics, and can send notifications for new plays. This package runs the official LinuxServer.io Tautulli image as a non-root container; its database, configuration and cache live in the application data folder. Open the app and point it at your Plex server URL and token in the setup wizard."
+release_note = "1. First release: Tautulli 2.18.2 from Docker Hub, running as a non-root container; database, settings and cache live in the application data folder."
+important    = "Requires DockerEngine and a Plex Media Server. On first visit, complete the setup wizard with the Plex URL and token; everything is stored in DockerAppData/tautullidocker. Plex itself is not included. Back up the app data folder before uninstalling with data removal. The page is plain HTTP on the LAN; use a TLS reverse proxy before exposing it to the internet."
+
+[ru-ru]
+name         = "Tautulli"
+auth         = "linuxserver.io"
+version      = "@@VERSION@@"
+descript     = "Tautulli is a monitoring and statistics companion for Plex Media Server. It records play history, shows live streams, bandwidth and library statistics, and can send notifications for new plays. This package runs the official LinuxServer.io Tautulli image as a non-root container; its database, configuration and cache live in the application data folder. Open the app and point it at your Plex server URL and token in the setup wizard."
+release_note = "1. First release: Tautulli 2.18.2 from Docker Hub, running as a non-root container; database, settings and cache live in the application data folder."
+important    = "Requires DockerEngine and a Plex Media Server. On first visit, complete the setup wizard with the Plex URL and token; everything is stored in DockerAppData/tautullidocker. Plex itself is not included. Back up the app data folder before uninstalling with data removal. The page is plain HTTP on the LAN; use a TLS reverse proxy before exposing it to the internet."
+
+[tr-tr]
+name         = "Tautulli"
+auth         = "linuxserver.io"
+version      = "@@VERSION@@"
+descript     = "Tautulli is a monitoring and statistics companion for Plex Media Server. It records play history, shows live streams, bandwidth and library statistics, and can send notifications for new plays. This package runs the official LinuxServer.io Tautulli image as a non-root container; its database, configuration and cache live in the application data folder. Open the app and point it at your Plex server URL and token in the setup wizard."
+release_note = "1. First release: Tautulli 2.18.2 from Docker Hub, running as a non-root container; database, settings and cache live in the application data folder."
+important    = "Requires DockerEngine and a Plex Media Server. On first visit, complete the setup wizard with the Plex URL and token; everything is stored in DockerAppData/tautullidocker. Plex itself is not included. Back up the app data folder before uninstalling with data removal. The page is plain HTTP on the LAN; use a TLS reverse proxy before exposing it to the internet."
+
+[pt-pt]
+name         = "Tautulli"
+auth         = "linuxserver.io"
+version      = "@@VERSION@@"
+descript     = "Tautulli is a monitoring and statistics companion for Plex Media Server. It records play history, shows live streams, bandwidth and library statistics, and can send notifications for new plays. This package runs the official LinuxServer.io Tautulli image as a non-root container; its database, configuration and cache live in the application data folder. Open the app and point it at your Plex server URL and token in the setup wizard."
+release_note = "1. First release: Tautulli 2.18.2 from Docker Hub, running as a non-root container; database, settings and cache live in the application data folder."
+important    = "Requires DockerEngine and a Plex Media Server. On first visit, complete the setup wizard with the Plex URL and token; everything is stored in DockerAppData/tautullidocker. Plex itself is not included. Back up the app data folder before uninstalling with data removal. The page is plain HTTP on the LAN; use a TLS reverse proxy before exposing it to the internet."
+
+[ar-sa]
+name         = "Tautulli"
+auth         = "linuxserver.io"
+version      = "@@VERSION@@"
+descript     = "Tautulli is a monitoring and statistics companion for Plex Media Server. It records play history, shows live streams, bandwidth and library statistics, and can send notifications for new plays. This package runs the official LinuxServer.io Tautulli image as a non-root container; its database, configuration and cache live in the application data folder. Open the app and point it at your Plex server URL and token in the setup wizard."
+release_note = "1. First release: Tautulli 2.18.2 from Docker Hub, running as a non-root container; database, settings and cache live in the application data folder."
+important    = "Requires DockerEngine and a Plex Media Server. On first visit, complete the setup wizard with the Plex URL and token; everything is stored in DockerAppData/tautullidocker. Plex itself is not included. Back up the app data folder before uninstalling with data removal. The page is plain HTTP on the LAN; use a TLS reverse proxy before exposing it to the internet."
+
+[cs-cz]
+name         = "Tautulli"
+auth         = "linuxserver.io"
+version      = "@@VERSION@@"
+descript     = "Tautulli is a monitoring and statistics companion for Plex Media Server. It records play history, shows live streams, bandwidth and library statistics, and can send notifications for new plays. This package runs the official LinuxServer.io Tautulli image as a non-root container; its database, configuration and cache live in the application data folder. Open the app and point it at your Plex server URL and token in the setup wizard."
+release_note = "1. First release: Tautulli 2.18.2 from Docker Hub, running as a non-root container; database, settings and cache live in the application data folder."
+important    = "Requires DockerEngine and a Plex Media Server. On first visit, complete the setup wizard with the Plex URL and token; everything is stored in DockerAppData/tautullidocker. Plex itself is not included. Back up the app data folder before uninstalling with data removal. The page is plain HTTP on the LAN; use a TLS reverse proxy before exposing it to the internet."
+
+[he-il]
+name         = "Tautulli"
+auth         = "linuxserver.io"
+version      = "@@VERSION@@"
+descript     = "Tautulli is a monitoring and statistics companion for Plex Media Server. It records play history, shows live streams, bandwidth and library statistics, and can send notifications for new plays. This package runs the official LinuxServer.io Tautulli image as a non-root container; its database, configuration and cache live in the application data folder. Open the app and point it at your Plex server URL and token in the setup wizard."
+release_note = "1. First release: Tautulli 2.18.2 from Docker Hub, running as a non-root container; database, settings and cache live in the application data folder."
+important    = "Requires DockerEngine and a Plex Media Server. On first visit, complete the setup wizard with the Plex URL and token; everything is stored in DockerAppData/tautullidocker. Plex itself is not included. Back up the app data folder before uninstalling with data removal. The page is plain HTTP on the LAN; use a TLS reverse proxy before exposing it to the internet."
+
+[id-id]
+name         = "Tautulli"
+auth         = "linuxserver.io"
+version      = "@@VERSION@@"
+descript     = "Tautulli is a monitoring and statistics companion for Plex Media Server. It records play history, shows live streams, bandwidth and library statistics, and can send notifications for new plays. This package runs the official LinuxServer.io Tautulli image as a non-root container; its database, configuration and cache live in the application data folder. Open the app and point it at your Plex server URL and token in the setup wizard."
+release_note = "1. First release: Tautulli 2.18.2 from Docker Hub, running as a non-root container; database, settings and cache live in the application data folder."
+important    = "Requires DockerEngine and a Plex Media Server. On first visit, complete the setup wizard with the Plex URL and token; everything is stored in DockerAppData/tautullidocker. Plex itself is not included. Back up the app data folder before uninstalling with data removal. The page is plain HTTP on the LAN; use a TLS reverse proxy before exposing it to the internet."
+
+[nb-no]
+name         = "Tautulli"
+auth         = "linuxserver.io"
+version      = "@@VERSION@@"
+descript     = "Tautulli is a monitoring and statistics companion for Plex Media Server. It records play history, shows live streams, bandwidth and library statistics, and can send notifications for new plays. This package runs the official LinuxServer.io Tautulli image as a non-root container; its database, configuration and cache live in the application data folder. Open the app and point it at your Plex server URL and token in the setup wizard."
+release_note = "1. First release: Tautulli 2.18.2 from Docker Hub, running as a non-root container; database, settings and cache live in the application data folder."
+important    = "Requires DockerEngine and a Plex Media Server. On first visit, complete the setup wizard with the Plex URL and token; everything is stored in DockerAppData/tautullidocker. Plex itself is not included. Back up the app data folder before uninstalling with data removal. The page is plain HTTP on the LAN; use a TLS reverse proxy before exposing it to the internet."
+
+[nl-nl]
+name         = "Tautulli"
+auth         = "linuxserver.io"
+version      = "@@VERSION@@"
+descript     = "Tautulli is a monitoring and statistics companion for Plex Media Server. It records play history, shows live streams, bandwidth and library statistics, and can send notifications for new plays. This package runs the official LinuxServer.io Tautulli image as a non-root container; its database, configuration and cache live in the application data folder. Open the app and point it at your Plex server URL and token in the setup wizard."
+release_note = "1. First release: Tautulli 2.18.2 from Docker Hub, running as a non-root container; database, settings and cache live in the application data folder."
+important    = "Requires DockerEngine and a Plex Media Server. On first visit, complete the setup wizard with the Plex URL and token; everything is stored in DockerAppData/tautullidocker. Plex itself is not included. Back up the app data folder before uninstalling with data removal. The page is plain HTTP on the LAN; use a TLS reverse proxy before exposing it to the internet."
+
+[sv-se]
+name         = "Tautulli"
+auth         = "linuxserver.io"
+version      = "@@VERSION@@"
+descript     = "Tautulli is a monitoring and statistics companion for Plex Media Server. It records play history, shows live streams, bandwidth and library statistics, and can send notifications for new plays. This package runs the official LinuxServer.io Tautulli image as a non-root container; its database, configuration and cache live in the application data folder. Open the app and point it at your Plex server URL and token in the setup wizard."
+release_note = "1. First release: Tautulli 2.18.2 from Docker Hub, running as a non-root container; database, settings and cache live in the application data folder."
+important    = "Requires DockerEngine and a Plex Media Server. On first visit, complete the setup wizard with the Plex URL and token; everything is stored in DockerAppData/tautullidocker. Plex itself is not included. Back up the app data folder before uninstalling with data removal. The page is plain HTTP on the LAN; use a TLS reverse proxy before exposing it to the internet."
+
+[th-th]
+name         = "Tautulli"
+auth         = "linuxserver.io"
+version      = "@@VERSION@@"
+descript     = "Tautulli is a monitoring and statistics companion for Plex Media Server. It records play history, shows live streams, bandwidth and library statistics, and can send notifications for new plays. This package runs the official LinuxServer.io Tautulli image as a non-root container; its database, configuration and cache live in the application data folder. Open the app and point it at your Plex server URL and token in the setup wizard."
+release_note = "1. First release: Tautulli 2.18.2 from Docker Hub, running as a non-root container; database, settings and cache live in the application data folder."
+important    = "Requires DockerEngine and a Plex Media Server. On first visit, complete the setup wizard with the Plex URL and token; everything is stored in DockerAppData/tautullidocker. Plex itself is not included. Back up the app data folder before uninstalling with data removal. The page is plain HTTP on the LAN; use a TLS reverse proxy before exposing it to the internet."
+
+[vi-vn]
+name         = "Tautulli"
+auth         = "linuxserver.io"
+version      = "@@VERSION@@"
+descript     = "Tautulli is a monitoring and statistics companion for Plex Media Server. It records play history, shows live streams, bandwidth and library statistics, and can send notifications for new plays. This package runs the official LinuxServer.io Tautulli image as a non-root container; its database, configuration and cache live in the application data folder. Open the app and point it at your Plex server URL and token in the setup wizard."
+release_note = "1. First release: Tautulli 2.18.2 from Docker Hub, running as a non-root container; database, settings and cache live in the application data folder."
+important    = "Requires DockerEngine and a Plex Media Server. On first visit, complete the setup wizard with the Plex URL and token; everything is stored in DockerAppData/tautullidocker. Plex itself is not included. Back up the app data folder before uninstalling with data removal. The page is plain HTTP on the LAN; use a TLS reverse proxy before exposing it to the internet."
+

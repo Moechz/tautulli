@@ -1,0 +1,84 @@
+{
+  "app_id": "tautullidocker",
+  "title": "Tautulli",
+  "image": "linuxserver/tautulli:v2.18.2-ls251",
+  "repo_name": "tautulli",
+  "github_repo": "tautulli",
+  "upstream_version": "2.18.2",
+  "version": "2.18.2-1",
+  "mode": "plain",
+  "icon_slug": "tautulli",
+  "container_port": 8181,
+  "host_port": 8015,
+  "category": [
+    "Audio_Video_Entertainment"
+  ],
+  "user": "1000:1000",
+  "volumes": [
+    {
+      "host": "/Volume1/DockerAppData/tautullidocker/config",
+      "container": "/config"
+    }
+  ],
+  "env": {
+    "TZ": "Asia/Shanghai",
+    "HOME": "/config"
+  },
+  "healthcheck": [
+    "CMD-SHELL",
+    "curl -s -o /dev/null http://127.0.0.1:8181/ || exit 1"
+  ],
+  "healthcheck_interval": "30s",
+  "healthcheck_timeout": "10s",
+  "healthcheck_retries": 3,
+  "healthcheck_start_period": "45s",
+  "auth": "linuxserver.io",
+  "upstream_url": "https://github.com/linuxserver/docker-tautulli",
+  "upstream_license": "GPL-3.0-only",
+  "license": "GPL-3.0-only",
+  "official": "https://github.com/linuxserver/docker-tautulli",
+  "help": "https://github.com/Moechz/tautulli/issues",
+  "descript": "Tautulli is a monitoring and statistics companion for Plex Media Server. It records play history, shows live streams, bandwidth and library statistics, and can send notifications for new plays. This package runs the official LinuxServer.io Tautulli image as a non-root container; its database, configuration and cache live in the application data folder. Open the app and point it at your Plex server URL and token in the setup wizard.",
+  "important": "Requires DockerEngine and a Plex Media Server. On first visit, complete the setup wizard with the Plex URL and token; everything is stored in DockerAppData/tautullidocker. Plex itself is not included. Back up the app data folder before uninstalling with data removal. The page is plain HTTP on the LAN; use a TLS reverse proxy before exposing it to the internet.",
+  "release_note": "1. First release: Tautulli 2.18.2 from Docker Hub, running as a non-root container; database, settings and cache live in the application data folder.",
+  "translations": {
+    "zh-cn": {
+      "descript": "Tautulli 是 Plex Media Server 的监控与统计工具：记录播放历史、实时会话、带宽和媒体库统计，并可发送通知。本应用运行 LinuxServer.io 官方镜像并以非 root 用户运行；数据库、配置和缓存保存在应用数据目录。打开应用后在向导里填入 Plex 地址和 Token 即可。",
+      "important": "需要 DockerEngine 和 Plex Media Server。首次访问请在向导中填写 Plex 地址与 Token；数据保存在 DockerAppData/tautullidocker。本包不含 Plex 本体。卸载并删除数据前请备份。页面是局域网明文 HTTP，暴露公网前请加 TLS 反向代理。",
+      "release_note": "1. 首个版本：Tautulli 2.18.2，来自 Docker Hub，以非 root 用户运行；数据库、设置和缓存保存在应用数据目录。"
+    },
+    "zh-hk": {
+      "descript": "Tautulli 是 Plex Media Server 的監控與統計工具：記錄播放歷史、即時工作階段、頻寬和媒體庫統計，並可傳送通知。本應用執行 LinuxServer.io 官方鏡像並以非 root 使用者執行；資料庫、設定和快取儲存在應用程式資料目錄。開啟應用後在精靈裡填入 Plex 位址和 Token 即可。",
+      "important": "需要 DockerEngine 和 Plex Media Server。首次存取請在精靈中填寫 Plex 位址與 Token；資料儲存在 DockerAppData/tautullidocker。本包不含 Plex 本體。解除安裝並刪除資料前請備份。頁面是區域網路明文 HTTP，暴露公網前請加 TLS 反向代理。",
+      "release_note": "1. 首個版本：Tautulli 2.18.2，來自 Docker Hub，以非 root 使用者執行；資料庫、設定和快取儲存在應用程式資料目錄。"
+    }
+  },
+  "data_notes": "`config` holds `config.ini`, `tautulli.db` and the cache; copying it is a complete backup.",
+  "design_notes": [
+    "**Runs as a non-root container.** Verified on real hardware as uid 1000; the upstream image starts unprivileged.",
+    "**One volume.** The database, settings and cache are all below `/config`; no other host path is written.",
+    "**Health check** probes the web UI on container port 8181 (it answers with a redirect to the login page).",
+    "**Fixed image tag, never `:latest`**, Docker Hub only, no `privileged`, no `network_mode: host`, no Docker socket, no `cap_add`."
+  ],
+  "limitations": [
+    "Plex Media Server is not included; Tautulli only reads its API and needs a reachable Plex server.",
+    "The page is plain HTTP on the LAN; use a TLS reverse proxy before exposing it to the internet.",
+    "Docker applications cannot be upgraded in place in the App Center: updating means uninstalling and reinstalling, which keeps the data folder."
+  ],
+  "runtime_files": [
+    {
+      "path": "config/config.ini",
+      "purpose": "database path, Plex connection and UI settings",
+      "created": "first start",
+      "growth": "small",
+      "lifecycle": "never overwritten; back it up"
+    }
+  ],
+  "icon_file": "src/tautullidocker.svg",
+  "platform": "x86_64",
+  "publisher": "Moechz",
+  "compose_project": "tautullidocker",
+  "release_tag_prefix": "v",
+  "docker_socket": false,
+  "group_add": []
+}
