@@ -1,7 +1,7 @@
 # ===========================================================================
 # Tautulli for TerraMaster TOS 7 (Docker application)
 # ===========================================================================
-# Upstream image : linuxserver/tautulli:v2.18.2-ls251 (Docker Hub, used unmodified)
+# Upstream image : linuxserver/tautulli:v2.19.1-ls252 (Docker Hub, used unmodified)
 #                  -> https://github.com/linuxserver/docker-tautulli
 #
 # Ports   : host 8015 -> container 8181. The host port is in the
@@ -15,6 +15,10 @@
 #           non-root user, no privileged mode, no network_mode: host, no
 #           cap_add, explicit TZ, a healthcheck on the only service, and
 #           x-app-meta as the last block.
+# Wrapper : the upstream image generates a random admin password on first start
+#           and only prints it in /config/logs/tautulli.log; this wrapper seeds a
+#           known initial admin account (admin / tautulli) into /config/config.ini
+#           before exec'ing the upstream /init. Later starts keep the user config.
 # Escaping: docker compose interpolates ${VAR}/$VAR in compose files, so any
 #           '$' meant for the shell is written '$$'.
 #
@@ -26,10 +30,14 @@
 
 services:
   tautullidocker:
-    image: linuxserver/tautulli:v2.18.2-ls251
+    image: linuxserver/tautulli:v2.19.1-ls252
     container_name: tautullidocker
     restart: unless-stopped
     user: "1000:1000"
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        @@ENTRYPOINT_SH@@
     ports:
       - "8015:8181"
     environment:
