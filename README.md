@@ -70,8 +70,26 @@ complete the setup wizard with your Plex server URL and token.
 The package collects nothing and shares nothing. Tautulli stores the Plex URL,
 Plex token and its play-history database locally under
 `/Volume1/DockerAppData/tautullidocker/`, readable only by the application user.
+
 The full policy is in [PRIVACY.md](PRIVACY.md), which is also the URL in the
-package's `help` field.
+package's `help` field. It covers what is stored on the NAS, what leaves it,
+retention, your rights, security measures and the deletion channel, and it
+includes the **third-party API disclosure table** required by App Center review
+code C8:
+
+| Service | Data sent | Region |
+|---|---|---|
+| Your Plex Media Server | Plex token, API queries | your own host |
+| plex.tv | Plex account/server identifiers | United States |
+| The Movie Database (TMDB) | title names and external IDs | United States |
+| TheTVDB | series names and external IDs | United States |
+| GitHub | version check request (no personal data) | United States |
+| Notification services (Discord, Slack, Telegram, Pushover, Gotify, ntfy, SMTP, webhooks) | notification text | provider-dependent / your own host |
+| Image hosting (Imgur, Cloudinary) | notification image | United States |
+
+Only the Plex connection is part of normal operation; every other endpoint is
+contacted only when you enable or configure that feature. The publisher operates
+no server and receives no telemetry.
 
 ## Security
 
@@ -126,19 +144,21 @@ built from the same sources by `scripts/build-dual.sh`:
 
 | Architecture | Package | Size | SHA-256 |
 |---|---|---|---|
-| x86_64 | `tautullidocker_x86_64.tar.gz` | 5896 B | `0edc38ce90af445842490cc20bebc05a63373d3f896aa097d1cc5f5c89ca9b5e` |
-| aarch64 | `tautullidocker_aarch64.tar.gz` | 5897 B | `f844f4abe446c25a003e2617181a88d95187c9ef533b53dc88fa6362a36b6a98` |
+| x86_64 | `tautullidocker_x86_64.tar.gz` | 6670 B | `499b6723029237118fc731a782be42a91ae848d0247a5d9cf915e5a312ca671a` |
+| aarch64 | `tautullidocker_aarch64.tar.gz` | 6670 B | `4c04464e657d40aeb9f78578d671b8562ab9f8592823d2d752ab14cb9182a8d9` |
 
-The x86_64 package was verified with the full on-device E2E; the aarch64 package
-passes the official `TOSAppSelfTestingTool -c` check and the developer platform's
-automated validation (no ARM host was available for a container E2E).
+Both packages pass the official `TOSAppSelfTestingTool -c` check. The x86_64
+package also passes the isolated staging run (container running/healthy, HTTP
+303, uid 1000); no ARM host was available for a container run of the aarch64
+package, which is covered by the official check and the platform's automated
+validation.
 
 ## Build
 
 ```bash
-scripts/build-dual.sh 2.19.1-1     # both architectures, suffix-named + .sha256
+scripts/build-dual.sh 2.19.1-2     # both architectures, suffix-named + .sha256
 scripts/build.sh 2.19.1-2          # single-architecture iteration bump
-scripts/build.sh 2.19.1-1 aarch64
+scripts/build.sh 2.19.1-2 aarch64
 ```
 
 The build stages the four files, substitutes the version/platform placeholders,
@@ -172,13 +192,13 @@ App Center to delete it. No files are written outside that folder.
 ## Store submission
 
 1. Public GitHub repo (code + README + PRIVACY).
-2. Release **tag `v2.19.1-1`**, assets `tautullidocker_x86_64.tar.gz` and
+2. Release **tag `v2.19.1-2`**, assets `tautullidocker_x86_64.tar.gz` and
    `tautullidocker_aarch64.tar.gz` (each with a `.sha256`); the unsuffixed
    `tautullidocker.tar.gz` is the x86_64 package.
 3. Developer platform → two App records with the same ID `tautullidocker`
    (package type Docker, same repository URL): architecture `x86_64` and
    architecture `aarch64`; each record gets its own version and asset URL.
-4. Version Management → Add Version `2.19.1-1` for **each** record → automated
+4. Version Management → Add Version `2.19.1-2` for **each** record → automated
    validation → review.
 
 ## License / branding

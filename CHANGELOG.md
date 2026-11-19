@@ -2,6 +2,30 @@
 
 All notable user-visible changes to the Tautulli TOS application package.
 
+## 2.19.1-2 — 2026-11-19
+
+### Review remediation
+- **C3** — privacy policy: `PRIVACY.md` is now a complete policy (scope, data
+  stored locally, outbound traffic, retention, user rights, security, deletion
+  channel, contact) and is linked from the package `help` field, the README and
+  the release note.
+- **C8** — third-party API disclosure: new table listing every endpoint
+  (Plex Media Server, plex.tv, The Movie Database, TheTVDB, GitHub and the
+  optional notification / image-hosting services), the data sent, the purpose
+  and the destination region. Self-hosted alternatives (Gotify, ntfy, SMTP,
+  webhooks) are listed as well.
+- **F1** — installation failed (as reported by the review): not reproducible
+  locally. Package layout, `config.ini` fields, `platform`/`id` matching and
+  archive contents were re-checked against an existing package; the upstream
+  image ships `curl` for the healthcheck; a clean dual-architecture rebuild
+  passes the official self-test and an isolated staging run (container
+  running/healthy, HTTP 303, uid 1000). The first-start grace period was
+  extended to 90 s with 5 retries to tolerate slower NAS disks.
+
+### Unchanged
+- Upstream image `linuxserver/tautulli:v2.19.1-ls252`, host/container ports,
+  the single data volume and the data behaviour.
+
 ## 2.19.1-1 — 2026-11-11
 
 ### Changed

@@ -49,8 +49,8 @@ services:
       test: ["CMD-SHELL", "curl -s -o /dev/null http://127.0.0.1:8181/ || exit 1"]
       interval: 30s
       timeout: 10s
-      retries: 3
-      start_period: 45s
+      retries: 5
+      start_period: 90s
 
 # TOS App Center web metadata (must be the last block of the file):
 # web.port is the published host port above, protocol is http.
