@@ -5,7 +5,7 @@
   "repo_name": "tautulli",
   "github_repo": "tautulli",
   "upstream_version": "2.19.1",
-  "version": "2.19.1-2",
+  "version": "2.19.1-3",
   "mode": "wrapper",
   "icon_slug": "tautulli",
   "container_port": 8181,
@@ -38,32 +38,34 @@
   "license": "GPL-3.0-only",
   "official": "https://github.com/linuxserver/docker-tautulli",
   "help": "https://github.com/Moechz/tautulli/blob/main/PRIVACY.md",
-  "descript": "Tautulli is a monitoring and statistics companion for Plex Media Server. It records play history, shows live streams, bandwidth and library statistics, and can send notifications for new plays. This package runs the official LinuxServer.io Tautulli image as a non-root container; its database, configuration and cache live in the application data folder. Tautulli needs an existing Plex server: open the app, complete the setup wizard with the Plex URL and token, and the dashboard starts collecting data.",
-  "important": "Requires DockerEngine and Plex; Tautulli shows no statistics until connected. First login: admin / tautulli - change it immediately, then complete the setup wizard with your Plex URL and token. Data stays on your NAS in DockerAppData/tautullidocker; the package sends no telemetry. A normal uninstall keeps the folder for reinstall; uninstall with data removal deletes it. Plain HTTP on the LAN; use a TLS reverse proxy before exposing it. Privacy policy: see the Help link.",
-  "release_note": "2.19.1-2: compliance update for App Center review C3 and C8. PRIVACY.md is now a complete policy with a third-party API disclosure table - Plex Media Server, plex.tv, TMDB, TheTVDB, GitHub and the optional notification/image services: endpoint, data sent and destination region for each; the package Help field and README point to it. F1 (installation failed) was not reproducible locally: package structure, config.ini fields, platform/id and archive layout were re-checked against a working app, and a clean dual-arch rebuild passes the official check and an isolated staging run. The first-start health-check grace period is extended to 90s (5 retries) for slower NAS disks. No functional or data-behaviour change.",
+  "descript": "Tautulli is a monitoring and statistics companion for Plex Media Server: play history, live streams, bandwidth and library statistics, and notifications. This package runs the official LinuxServer.io image as a non-root container with all Linux capabilities dropped, and keeps its data in the app data folder. Tautulli needs an existing Plex server - sign in, complete the setup wizard with the Plex URL and token, and the dashboard starts collecting usage. Without Plex the web UI, settings and logs still work.",
+  "important": "Requires DockerEngine and Plex. First login: user tautulli, password generated at first start and stored in DockerAppData/tautullidocker/config/initial-password.txt (mode 600) - change it in Settings, then delete that file. Data stays on your NAS, no telemetry. A normal uninstall keeps the folder, uninstall with data removal deletes it. Plain HTTP on the LAN - use a TLS reverse proxy before exposing it. Privacy policy: see the Help link.",
+  "release_note": "2.19.1-3: review remediation for S6, S11, S9, V1 and F5. No credential is shipped any more: the wrapper generates a random admin password at first start, keeps only its PBKDF2 hash in config.ini and writes the plaintext to config/initial-password.txt (600), which is deleted automatically once you change the password. The container drops all capabilities and sets no-new-privileges on top of uid 1000, data is 700/600. The description now matches what runs without Plex. Login-to-dashboard verified by test/smoke.sh.",
   "translations": {
     "zh-cn": {
-      "descript": "Tautulli 是 Plex Media Server 的监控与统计工具：记录播放历史、实时会话、带宽和媒体库统计，并可发送通知。本应用运行 LinuxServer.io 官方镜像并以非 root 用户运行；数据库、配置和缓存保存在应用数据目录。Tautulli 需要已有的 Plex 服务器：打开应用后在向导里填入 Plex 地址和 Token，仪表盘即开始收集数据。",
-      "important": "需要 DockerEngine 和 Plex；未连接前 Tautulli 不显示统计。初始登录：admin / tautulli，请立即修改，然后在向导中填写 Plex 地址与 Token。数据保存在 NAS 的 DockerAppData/tautullidocker，本应用不上报遥测。普通卸载会保留该目录以便重装，选择删除数据才会清除。页面是局域网明文 HTTP，暴露公网前请加 TLS 反向代理。隐私政策见帮助链接。",
-      "release_note": "2.19.1-2：针对应用中心审核 C3/C8 的合规更新。PRIVACY.md 扩写为完整隐私政策，新增第三方 API 披露表（Plex Media Server、plex.tv、TMDB、TheTVDB、GitHub，以及可选的通知/图床服务，逐项列明端点、发送的数据与目的地/地区）；帮助链接与 README 同步指向该政策。F1（安装失败）未能本地复现：已按可用应用逐项复核包结构、config.ini 字段、platform/id 与压缩包布局，双架构重新构建后通过官方检测与隔离 staging。首启健康检查宽限期延长至 90 秒（5 次重试），以适配较慢的 NAS 磁盘。无功能或数据行为变化。"
+      "descript": "Tautulli 是 Plex Media Server 的监控与统计面板：记录播放历史、实时会话、带宽和媒体库统计，并可推送通知。本应用运行 LinuxServer.io 官方镜像，以非 root 用户运行并丢弃全部 Linux 能力，数据保存在应用数据目录。Tautulli 需要已有的 Plex 服务器：登录后在向导中填入 Plex 地址与 Token，仪表盘即开始收集数据。未连接 Plex 时网页界面、设置与日志仍可正常使用。",
+      "important": "需要 DockerEngine 和 Plex。初始登录：用户名 tautulli，密码在首次启动时随机生成并写入 DockerAppData/tautullidocker/config/initial-password.txt（权限 600），登录后请在设置中修改密码并删除该文件。数据保存在 NAS，不上报遥测。普通卸载保留数据目录，选择删除数据才会清除。页面为局域网明文 HTTP，暴露公网前请加 TLS 反向代理。隐私政策见帮助链接。",
+      "release_note": "2.19.1-3：针对审核 S6、S11、S9、V1、F5 的整改。包内不再内置任何凭据：首启密码由包装脚本随机生成，config.ini 仅保存 PBKDF2 哈希，明文写入 config/initial-password.txt（权限 600），修改密码后自动删除。容器在 uid 1000 基础上丢弃全部 Linux 能力并启用 no-new-privileges，数据目录 700、关键文件 600。描述已与实际可用功能对齐（无 Plex 时网页界面、设置与日志可用）。已用 test/smoke.sh 实测登录到仪表盘。"
     },
     "zh-hk": {
-      "descript": "Tautulli 是 Plex Media Server 的監控與統計工具：記錄播放歷史、即時工作階段、頻寬和媒體庫統計，並可傳送通知。本應用執行 LinuxServer.io 官方鏡像並以非 root 使用者執行；資料庫、設定和快取儲存在應用程式資料目錄。Tautulli 需要既有的 Plex 伺服器：開啟應用後在精靈裡填入 Plex 位址和 Token，儀表板即開始收集資料。",
-      "important": "需要 DockerEngine 和 Plex；未連線前 Tautulli 不顯示統計。初始登入：admin / tautulli，請立即修改，然後在精靈中填寫 Plex 位址與 Token。資料儲存在 NAS 的 DockerAppData/tautullidocker，本應用不上傳遙測。一般解除安裝會保留該目錄以便重新安裝，選擇刪除資料才會清除。頁面是區域網路明文 HTTP，暴露公網前請加 TLS 反向代理。隱私政策見說明連結。",
-      "release_note": "2.19.1-2：針對應用中心審核 C3/C8 的合規更新。PRIVACY.md 擴寫為完整隱私政策，新增第三方 API 披露表（Plex Media Server、plex.tv、TMDB、TheTVDB、GitHub，以及可選的通知/圖床服務，逐項列明端點、傳送的資料與目的地/地區）；說明連結與 README 同步指向該政策。F1（安裝失敗）未能本地重現：已按可用應用逐項複核包結構、config.ini 欄位、platform/id 與壓縮包佈局，雙架構重新建置後通過官方檢測與隔離 staging。首啟健康檢查寬限期延長至 90 秒（5 次重試），以適配較慢的 NAS 磁碟。無功能或資料行為變更。"
+      "descript": "Tautulli 是 Plex Media Server 的監控與統計面板：記錄播放歷史、即時工作階段、頻寬和媒體庫統計，並可傳送通知。本應用執行 LinuxServer.io 官方鏡像，以非 root 使用者執行並丟棄全部 Linux 能力，資料儲存在應用程式資料目錄。Tautulli 需要既有的 Plex 伺服器：登入後在精靈中填入 Plex 位址與 Token，儀表板即開始收集資料。未連線 Plex 時網頁介面、設定與日誌仍可正常使用。",
+      "important": "需要 DockerEngine 和 Plex。初始登入：使用者名稱 tautulli，密碼在首次啟動時隨機產生並寫入 DockerAppData/tautullidocker/config/initial-password.txt（權限 600），登入後請在設定中修改密碼並刪除該檔案。資料儲存在 NAS，不上傳遙測。一般解除安裝保留資料目錄，選擇刪除資料才會清除。頁面是區域網路明文 HTTP，暴露公網前請加 TLS 反向代理。隱私政策見說明連結。",
+      "release_note": "2.19.1-3：針對審核 S6、S11、S9、V1、F5 的整改。包內不再內建任何憑證：首啟密碼由包裝指令碼隨機產生，config.ini 僅保存 PBKDF2 雜湊，明文寫入 config/initial-password.txt（權限 600），修改密碼後自動刪除。容器在 uid 1000 基礎上丟棄全部 Linux 能力並啟用 no-new-privileges，資料目錄 700、關鍵檔案 600。描述已與實際可用功能對齊（未連線 Plex 時網頁介面、設定與日誌可用）。已用 test/smoke.sh 實測登入到儀表板。"
     }
   },
-  "data_notes": "All persistent data stays on the NAS in `config` (`config.ini`, `tautulli.db`, cache). No telemetry is sent. Copying the folder is a complete backup; uninstall with data removal deletes it.",
+  "data_notes": "All persistent data stays on the NAS in `config` (`config.ini`, `tautulli.db`, cache, and the first-start `initial-password.txt`, which is removed once you change the password). No telemetry is sent. Copying the folder is a complete backup; uninstall with data removal deletes it.",
   "design_notes": [
-    "**Non-root container.** The service runs as uid 1000 (verified on hardware), with no privileged mode, host network, Docker socket or `cap_add`. The upstream s6 init needs to adjust `/run` permissions, so `no-new-privileges`/`cap_drop` would break it; the non-root `user:` directive is the effective privilege reduction.",
-    "**Usable first login.** Tautulli 2.19 generates a random admin password on first start and prints it only in `/config/logs/tautulli.log`. `src/entrypoint.sh` seeds a known initial account (`admin` / `tautulli`, change immediately) into `/config/config.ini` before exec'ing the upstream `/init`; later starts keep the user's config untouched.",
+    "**Non-root container, empty capability set.** The service runs as uid 1000 (measured on hardware: `id -u` = 1000) and additionally drops every Linux capability (`cap_drop: [ALL]`) and sets `no-new-privileges`. Measured inside the running container: `CapEff 0000000000000000`, `CapBnd 0000000000000000`, `NoNewPrivs 1`. No privileged mode, host network, Docker socket or `cap_add`. `docs/ROOT-PRIVILEGE.md` records the analysis for S11/V1 - the upstream image declares no USER, the package pins the runtime user, and no root exemption is requested.",
+    "**No shipped credential (S6).** Tautulli 2.19 prints a random setup-wizard password to the container log, which is unusable from the App Center. `src/entrypoint.sh` therefore generates its own random password on the first start, keeps only the PBKDF2 hash in `/config/config.ini` and writes the plaintext to `/config/initial-password.txt` (mode 600) in the app data folder. Nothing secret is printed to the log, and the file is deleted automatically once the user changes the password.",
+    "**Private data directory (S11).** The wrapper runs with `umask 077`, sets `/config` to 700 and the credential/history files to 600; the app inherits the umask, so `config.ini`, `tautulli.db` and the logs are created 600.",
     "**One volume.** The database, settings and cache are all below `/config`; no other host path is written.",
     "**Privacy.** The package sends no telemetry; the only outbound connection is the Plex server you configure (plus Tautulli's optional upstream update check). `PRIVACY.md` documents this and is linked from the package Help field.",
     "**Health check** probes the web UI on container port 8181 (it answers with a redirect to the login page).",
     "**Fixed image tag, never `:latest`**, Docker Hub only, no `privileged`, no `network_mode: host`, no Docker socket, no `cap_add`."
   ],
   "limitations": [
-    "Tautulli is a companion for an existing Plex Media Server; without Plex it only provides the setup wizard and no statistics.",
+    "Tautulli is a companion for an existing Plex Media Server; without Plex the web UI, settings, logs and notification configuration work, but there are no statistics.",
+    "The first password is generated at install time and stored as plain text (mode 600) in `config/initial-password.txt`; change it at the first login and the file is deleted on the next restart.",
     "The page is plain HTTP on the LAN; use a TLS reverse proxy before exposing it to the internet.",
     "Uninstalling without data removal keeps `/Volume1/DockerAppData/tautullidocker` so a reinstall can reuse the history and settings; choose data removal in the App Center to delete it.",
     "Docker applications cannot be upgraded in place in the App Center: updating means uninstalling and reinstalling, which keeps the data folder."
@@ -71,9 +73,23 @@
   "runtime_files": [
     {
       "path": "config/config.ini",
-      "purpose": "database path, Plex connection and UI settings",
+      "purpose": "database path, Plex connection, admin credentials (hash only) and UI settings",
       "created": "first start",
       "growth": "small",
+      "lifecycle": "written on first start, updated by Tautulli; back it up"
+    },
+    {
+      "path": "config/initial-password.txt",
+      "purpose": "plain-text first-login password generated at install time",
+      "created": "first start",
+      "growth": "one small file",
+      "lifecycle": "delete it after changing the password (removed automatically on the next restart)"
+    },
+    {
+      "path": "config/tautulli.db",
+      "purpose": "play history, library and user statistics",
+      "created": "first start",
+      "growth": "grows with the history",
       "lifecycle": "never overwritten; back it up"
     }
   ],
@@ -85,6 +101,6 @@
   "docker_socket": false,
   "group_add": [],
   "entrypoint_file": "src/entrypoint.sh",
-  "wrapper_note": "the upstream image generates a random admin password on first start and only prints it in /config/logs/tautulli.log; this wrapper seeds a known initial admin account (admin / tautulli) into /config/config.ini before exec'ing the upstream /init. Later starts keep the user's config.",
-  "wrapper_note_readme": "- **Known first login (wrapper)**: Tautulli 2.19 generates a random admin password and prints it only in `/config/logs/tautulli.log`. `src/entrypoint.sh` seeds `admin` / `tautulli` (change immediately) into `/config/config.ini` before executing the upstream `/init`; later starts keep your config."
+  "wrapper_note": "no credential is shipped: on the first start src/entrypoint.sh generates a random admin password, keeps only its PBKDF2 hash in /config/config.ini and writes the plaintext to /config/initial-password.txt (mode 600) in the app data folder, then execs the upstream /init. The file is deleted automatically once the user changes the password.",
+  "wrapper_note_readme": "- **First login without a shipped credential**: Tautulli prints a random setup-wizard password only in the container log, which the App Center does not show. `src/entrypoint.sh` therefore generates its own random password on the first start, stores only the PBKDF2 hash in `/config/config.ini` and writes the plaintext to `config/initial-password.txt` (mode 600) in the app data folder. Change it at the first login; the file is deleted on the next restart once the stored hash no longer matches."
 }

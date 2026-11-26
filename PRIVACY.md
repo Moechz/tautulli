@@ -7,13 +7,13 @@ This policy describes how the **Tautulli** Docker application package
 - Upstream software: [Tautulli](https://github.com/Tautulli/Tautulli) 2.19.1,
   shipped as the official `linuxserver/tautulli` Docker Hub image
 - Publisher: Moechz
-- Last updated: 2026-11-19
+- Last updated: 2026-11-26
 
 ## 1. Scope
 
 The application runs the official LinuxServer.io image unmodified, as a
-non-root container (uid 1000). This policy covers the package, the wrapper
-script it adds, and the default configuration. Plex Media Server, the upstream
+non-root container (uid 1000) with every Linux capability dropped. This policy
+covers the package, the wrapper script it adds, and the default configuration. Plex Media Server, the upstream
 Tautulli software and any notification service you configure have their own
 policies; this document describes what *this package* and the local Tautulli
 instance do.
@@ -28,9 +28,10 @@ application user (uid 1000):
 |---|---|---|
 | Plex server URL and Plex token | `config/config.ini` | Connect to the Plex server you choose |
 | Admin username and password hash | `config/config.ini` | Sign in to the Tautulli web UI |
+| Initial admin password in plain text (mode 600, only until you change it) | `config/initial-password.txt` | Give you the generated first-login password without printing it to a log |
 | Play history, session and library statistics, user names | `config/tautulli.db` | Core functionality (the dashboard and reports) |
 | Application settings and notification credentials you enter | `config/tautulli.db` | Remember your configuration |
-| Logs, including generated credentials on an untouched upstream install | `config/logs/` | Operation and troubleshooting |
+| Logs (no credentials are written to them) | `config/logs/` | Operation and troubleshooting |
 | Image and metadata cache | `config/cache/` | Speed up the UI; rebuilt automatically |
 
 Nothing in this list is uploaded to the publisher or to TerraMaster. The
@@ -86,7 +87,9 @@ you control.
 
 ## 6. Retention
 
-Data is kept for as long as the application is installed and you keep it. Play
+Data is kept for as long as the application is installed and you keep it. The
+plain-text `config/initial-password.txt` is deleted as soon as you change the
+password (it is checked against the stored hash on every start). Play
 history can be trimmed in Tautulli's settings (per-library retention) or
 deleted from the UI. Logs rotate according to Tautulli's own log rotation.
 Uninstalling the application with data removal, or deleting
@@ -109,11 +112,16 @@ from the publisher; all requests are handled locally by you.
 
 ## 8. Security measures
 
-- The container runs as uid 1000 (non-root), without privileged mode, host
-  networking, extra capabilities or access to the Docker socket.
-- Data lives in a directory readable and writable only by that user.
-- The package seeds a known first-login account (`admin` / `tautulli`); change
-  the password immediately. The password is stored as a PBKDF2 hash.
+- The container runs as uid 1000 (non-root) with `cap_drop: [ALL]` and
+  `no-new-privileges`, without privileged mode, host networking or access to the
+  Docker socket.
+- Data lives in a directory (mode 700) readable and writable only by that user;
+  the database and credential files are created with mode 600.
+- The package ships no account. The first-login password is generated randomly
+  at install time, written to `config/initial-password.txt` (mode 600) and kept
+  only as a PBKDF2 hash in `config.ini`. Nothing is printed to the log. Change
+  the password at the first login; the plain-text file is then removed on the
+  next start.
 - Secrets you enter (Plex token, notification tokens) are stored in the local
   database and are never sent to the publisher.
 - The web UI is served over plain HTTP on your LAN; if you expose it to the

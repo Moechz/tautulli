@@ -2,6 +2,63 @@
 
 All notable user-visible changes to the Tautulli TOS application package.
 
+## 2.19.1-3 — 2026-11-26
+
+Remediation of the App Center review of 2.19.1-2 (x86_64: **F5** plus a failed
+online-installation check; aarch64: **S11**, **S6**, **S9**, **V1**).
+
+### Changed / fixed
+
+- **S6 — no credential is shipped any more.** 2.19.1-2 seeded a fixed
+  `admin` / `tautulli` account into `config.ini`. The package now contains no
+  account at all: `src/entrypoint.sh` generates a random 16-character password on
+  the very first start with Tautulli's own PBKDF2 parameters (sha256, 600000
+  rounds), writes **only the hash** into `config/config.ini`, and writes the
+  plain text to `config/initial-password.txt` with mode 600 in the app data
+  folder (readable from the TOS file manager, not printable into the log).
+  Once the stored hash no longer matches that file (the user changed the
+  password), the file is deleted on the next start.
+- **S11 — file permissions minimised.** The wrapper runs with `umask 077`,
+  creates `/config`, `logs`, `cache` and `backups` with mode 700, and
+  pre-creates `tautulli.db` as 600 before the s6 service manager (which runs with
+  its own umask) can create it 644. Verified after a clean first start:
+  `config.ini` 600, `initial-password.txt` 600, `tautulli.db*` 600,
+  `logs/` 700.
+- **V1 — root privilege.** On top of the pinned `user: "1000:1000"`, the service
+  now drops every Linux capability (`cap_drop: [ALL]`) and sets
+  `security_opt: [no-new-privileges:true]`. Measured in the running container:
+  `uid=1000`, `CapEff 0000000000000000`, `CapBnd 0000000000000000`,
+  `NoNewPrivs 1`. The upstream image declares no `USER` (that is what the
+  detection sees), so `docs/ROOT-PRIVILEGE.md` records the analysis and the
+  measurements, and explains why no root exemption is requested.
+- **S9 — no issue text was provided** ("Review item S9", empty ISSUE). The
+  common interpretations were audited against the package: no credential or
+  token is printed to the log (the wrapper prints only the file location and
+  Tautulli's own generated-password banner is never reached because the password
+  already exists), the package contains no other secret, and the checksum of the
+  reviewed package matches the platform record and the release assets. The
+  audit is recorded here so the next review can verify it.
+- **F5 / failed online install — the declared functionality is now what actually
+  runs, and it is tested.** The description no longer promises a dashboard
+  without Plex: it states that the web UI, settings, logs and notification setup
+  work without Plex and that statistics need an existing Plex server. The first
+  login is a documented, reproducible flow instead of an implicit one.
+  `test/smoke.sh` drives the real core flow (login page → sign in with the
+  generated credential → dashboard → settings page → API rejects unauthenticated
+  calls → wrong password rejected) and is part of the release gate.
+
+### Added
+
+- `docs/ROOT-PRIVILEGE.md` — S11/V1 analysis with reproducible measurements.
+- `test/smoke.sh` — functional smoke test for the core flow (base URL argument,
+  non-zero exit when the app is unusable).
+- `smoke.yml` — extra probes used by the pipeline's `smoke.py` gate.
+
+### Unchanged
+
+- Upstream image `linuxserver/tautulli:v2.19.1-ls252`, the host/container ports
+  (8015 → 8181), the single data volume and the data behaviour.
+
 ## 2.19.1-2 — 2026-11-19
 
 ### Review remediation

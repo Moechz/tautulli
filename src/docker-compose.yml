@@ -15,10 +15,22 @@
 #           non-root user, no privileged mode, no network_mode: host, no
 #           cap_add, explicit TZ, a healthcheck on the only service, and
 #           x-app-meta as the last block.
-# Wrapper : the upstream image generates a random admin password on first start
-#           and only prints it in /config/logs/tautulli.log; this wrapper seeds a
-#           known initial admin account (admin / tautulli) into /config/config.ini
-#           before exec'ing the upstream /init. Later starts keep the user config.
+#
+# Least privilege (review items S11 / V1): the upstream image declares no USER,
+#           so the package pins user "1000:1000" AND drops every Linux
+#           capability (cap_drop: ALL) and forbids privilege escalation
+#           (no-new-privileges). Measured inside the running container:
+#           uid 1000, CapEff 0000000000000000, CapBnd 0000000000000000,
+#           NoNewPrivs 1. See docs/ROOT-PRIVILEGE.md - no root exemption is
+#           requested because no root process exists.
+#
+# Wrapper (review item S6): no credential is shipped. On the first start the
+#           wrapper generates a random admin password, stores only its PBKDF2
+#           hash in /config/config.ini and writes the plaintext to
+#           /config/initial-password.txt (mode 600) inside the app data folder,
+#           so it is readable from the TOS file manager but not from the log.
+#           Later starts keep the user's own password.
+#
 # Escaping: docker compose interpolates ${VAR}/$VAR in compose files, so any
 #           '$' meant for the shell is written '$$'.
 #
@@ -34,6 +46,10 @@ services:
     container_name: tautullidocker
     restart: unless-stopped
     user: "1000:1000"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     entrypoint: ["/bin/sh", "-c"]
     command:
       - |

@@ -8,7 +8,8 @@
 # --- internal project documents: kept locally, never published ---
 AGENTS.md
 HANDOFF.md
-/docs/
+# docs/ is published on purpose: it carries the privilege analysis the review
+# asks for (docs/ROOT-PRIVILEGE.md) and is linked from README.md.
 
 # --- local packaging toolkit copy and spec (never published) ---
 /.toolkit/

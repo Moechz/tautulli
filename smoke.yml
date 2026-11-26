@@ -1,0 +1,10 @@
+# Extra probes for ../smoke.py (the repo-level functional gate).
+# smoke.py also runs test/smoke.sh, which drives the real login -> dashboard
+# flow with the password generated on first start.
+checks:
+  - url: /auth/login
+    expect_status: [200]
+    expect_body: "Tautulli"
+    min_bytes: 1000
+  - url: /api/v2?cmd=get_server_info
+    expect_status: [401]

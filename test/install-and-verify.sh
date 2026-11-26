@@ -109,6 +109,20 @@ done
 [ "$hstat" = healthy ] && ok "healthcheck = healthy" || bad "healthcheck = ${hstat:-unknown}"
 uid=$("$DOCKER" exec "$APPID" id -u 2>/dev/null)
 [ "$uid" = "$UIDSPEC" ] && ok "runs as uid $UIDSPEC (non-root)" || bad "uid=$uid (expected $UIDSPEC)"
+drop=$("$DOCKER" inspect "$APPID" --format '{{json .HostConfig.CapDrop}}' 2>/dev/null)
+case "$drop" in
+  *'"ALL"'*) ok "all Linux capabilities dropped ($drop)" ;;
+  *) bad "cap_drop ALL missing: ${drop:-none}" ;;
+esac
+secopt=$("$DOCKER" inspect "$APPID" --format '{{json .HostConfig.SecurityOpt}}' 2>/dev/null)
+case "$secopt" in
+  *no-new-privileges*) ok "no-new-privileges is set ($secopt)" ;;
+  *) bad "no-new-privileges missing: ${secopt:-none}" ;;
+esac
+bnd=$("$DOCKER" exec "$APPID" sh -c 'grep -E "^CapBnd" /proc/self/status' 2>/dev/null \
+      | tr -d ' \t' | cut -d: -f2)
+[ "$bnd" = 0000000000000000 ] && ok "empty capability bounding set (CapBnd=$bnd)" \
+  || bad "CapBnd=${bnd:-unknown} (expected all zero)"
 ss -tln 2>/dev/null | grep -q ":${PORT} " && ok "host port ${PORT} listening" || bad "host port ${PORT} not listening"
 pub=$("$DOCKER" port "$APPID" 2>/dev/null)
 npub=$(printf '%s\n' "$pub" | grep -c '^[0-9]')
@@ -205,6 +219,13 @@ if [ -n "$RUNTIME_FILES" ]; then
   done
 fi
 [ -d "$VOL0" ] && ok "declared volume exists: $VOL0" || bad "declared volume missing: $VOL0"
+# S11: the generated first-login password must not be world-readable
+PW="$DATA/config/initial-password.txt"
+if [ -e "$PW" ]; then
+  pm=$(stat -c '%a' "$PW" 2>/dev/null)
+  [ "$pm" = 600 ] && ok "initial-password.txt mode 600" \
+                  || bad "initial-password.txt mode ${pm:-unknown} (expected 600)"
+fi
 
 echo
 echo "== 5/6  functionality =="
